@@ -9,9 +9,11 @@ use Andriichuk\BlueSnap\Exception\TransportException;
 use Andriichuk\BlueSnap\Http\Response;
 use Andriichuk\BlueSnap\Resource\PaymentFieldsTokens;
 use Andriichuk\BlueSnap\Resource\Plans;
+use Andriichuk\BlueSnap\Resource\MerchantManagedSubscriptions;
 use Andriichuk\BlueSnap\Resource\Subscriptions;
 use Andriichuk\BlueSnap\Resource\Transactions;
 use Andriichuk\BlueSnap\Resource\VaultedShoppers;
+use Andriichuk\BlueSnap\Resource\WebhookConfigurations;
 use InvalidArgumentException;
 use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -39,6 +41,11 @@ final class BlueSnapClient
         return new Subscriptions($this);
     }
 
+    public function merchantManagedSubscriptions(): MerchantManagedSubscriptions
+    {
+        return new MerchantManagedSubscriptions($this);
+    }
+
     public function transactions(): Transactions
     {
         return new Transactions($this);
@@ -52,6 +59,11 @@ final class BlueSnapClient
     public function paymentFieldsTokens(): PaymentFieldsTokens
     {
         return new PaymentFieldsTokens($this);
+    }
+
+    public function webhookConfigurations(): WebhookConfigurations
+    {
+        return new WebhookConfigurations($this);
     }
 
     /**

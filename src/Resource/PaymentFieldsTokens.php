@@ -20,4 +20,15 @@ final readonly class PaymentFieldsTokens
     {
         return $this->client->request('POST', 'payment-fields-tokens', query: $options);
     }
+
+    /**
+     * Create a 3-D Secure token prefilled with a saved card's details.
+     *
+     * @param array<string, mixed> $card
+     * @param array<string, scalar|null> $options
+     */
+    public function prefill(array $card, array $options = []): Response
+    {
+        return $this->client->request('POST', 'payment-fields-tokens/prefill', $card, $options);
+    }
 }

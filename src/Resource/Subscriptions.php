@@ -68,4 +68,55 @@ final readonly class Subscriptions
     {
         return $this->update($subscriptionId, ['status' => 'ACTIVE']);
     }
+
+    public function renew(int|string $subscriptionId): Response
+    {
+        return $this->update($subscriptionId, ['autoRenew' => true]);
+    }
+
+    /**
+     * @param array<string, scalar|null> $query
+     */
+    public function charges(int|string $subscriptionId, array $query = []): Response
+    {
+        return $this->client->request(
+            'GET',
+            'recurring/subscriptions/'.rawurlencode((string) $subscriptionId).'/charges',
+            query: $query,
+        );
+    }
+
+    public function chargeByTransactionId(int|string $transactionId): Response
+    {
+        return $this->client->request(
+            'GET',
+            'recurring/subscriptions/charges/resolve',
+            query: ['transactionid' => $transactionId],
+        );
+    }
+
+    /**
+     * Preview the charge caused by changing a plan, quantity, or override amount.
+     *
+     * @param array<string, scalar|null> $changes
+     */
+    public function switchChargeAmount(int|string $subscriptionId, array $changes): Response
+    {
+        return $this->client->request(
+            'GET',
+            'recurring/subscriptions/'.rawurlencode((string) $subscriptionId).'/switch-charge-amount',
+            query: $changes,
+        );
+    }
+
+    /**
+     * Trigger a renewal event in BlueSnap's sandbox subscription simulator.
+     */
+    public function simulate(int|string $subscriptionId): Response
+    {
+        return $this->client->request(
+            'POST',
+            'recurring/subscriptions/'.rawurlencode((string) $subscriptionId).'/run-specific',
+        );
+    }
 }

@@ -107,6 +107,14 @@ $tokenUrl = $response->location();
 
 BlueSnap returns the token in the response's `Location` header. Extract the final path segment only when the Hosted Payment Fields JavaScript integration requires the token value.
 
+For saved-card 3-D Secure flows, use `paymentFieldsTokens()->prefill()`.
+
+## Cashier readiness
+
+The SDK includes the outbound API operations required for a card-based Laravel Cashier package: customers and payment methods, plans, BlueSnap-managed and merchant-managed subscriptions, charge history, plan-switch previews, one-time payments, authorization/capture/reversal, refunds, 3-D Secure token prefill, webhook configuration, and reconciliation queries.
+
+See the [Cashier endpoint coverage matrix](docs/CASHIER_ENDPOINT_COVERAGE.md) for the exact mapping and the integration responsibilities that belong in the future Laravel package.
+
 ## Errors
 
 Non-successful responses throw typed exceptions:

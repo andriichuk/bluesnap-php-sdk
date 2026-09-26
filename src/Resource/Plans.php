@@ -41,4 +41,14 @@ final readonly class Plans
     {
         return $this->client->request('PUT', 'recurring/plans/'.rawurlencode((string) $planId), $changes);
     }
+
+    public function activate(int|string $planId): Response
+    {
+        return $this->update($planId, ['status' => 'ACTIVE']);
+    }
+
+    public function deactivate(int|string $planId): Response
+    {
+        return $this->update($planId, ['status' => 'INACTIVE']);
+    }
 }
