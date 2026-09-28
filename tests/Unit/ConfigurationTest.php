@@ -18,12 +18,22 @@ final class ConfigurationTest extends TestCase
     {
         self::assertSame(
             'https://sandbox.bluesnap.com',
-            new Configuration('user', 'password', '1469228')->checkoutHost(),
+            new Configuration('user', 'password', merchantId: '1469228')->checkoutHost(),
         );
         self::assertSame(
             'https://checkout.bluesnap.com',
-            new Configuration('user', 'password', '1469228', Environment::Production)->checkoutHost(),
+            new Configuration('user', 'password', Environment::Production, merchantId: '1469228')->checkoutHost(),
         );
+    }
+
+    #[Test]
+    public function merchant_id_is_optional_for_api_only_clients_without_changing_positional_arguments(): void
+    {
+        $configuration = new Configuration('user', 'password', Environment::Production, '3.0', 'custom-agent');
+
+        self::assertNull($configuration->merchantId);
+        self::assertSame('https://ws.bluesnap.com/services/2', $configuration->baseUri());
+        self::assertSame('custom-agent', $configuration->userAgent);
     }
 
     #[Test]
@@ -32,7 +42,7 @@ final class ConfigurationTest extends TestCase
         $configuration = new Configuration(
             'user',
             'password',
-            '1469228',
+            merchantId: '1469228',
             checkoutHost: 'https://payments.example.com/',
         );
 
@@ -45,7 +55,7 @@ final class ConfigurationTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new Configuration('user', 'password', $merchantId);
+        new Configuration('user', 'password', merchantId: $merchantId);
     }
 
     /** @return iterable<string, array{string}> */

@@ -52,6 +52,8 @@ $blueSnap = new BlueSnapClient(
 
 Never expose BlueSnap API credentials in client-side code or commit them to source control.
 
+`merchantId` is required when building Hosted Payment Page URLs. API-only clients may omit it.
+
 ## Plans
 
 ```php

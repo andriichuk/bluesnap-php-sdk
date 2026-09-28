@@ -14,10 +14,10 @@ final readonly class Configuration
         public string $username,
         #[\SensitiveParameter]
         public string $password,
-        public string $merchantId,
         public Environment $environment = Environment::Sandbox,
         public string $apiVersion = '3.0',
         public string $userAgent = 'andriichuk/bluesnap-php-sdk',
+        public ?string $merchantId = null,
         ?string $checkoutHost = null,
     ) {
         if (trim($this->username) === '') {
@@ -28,7 +28,7 @@ final readonly class Configuration
             throw new InvalidArgumentException('The BlueSnap password must not be empty.');
         }
 
-        if (preg_match('/^[1-9]\d*$/', $this->merchantId) !== 1) {
+        if ($this->merchantId !== null && preg_match('/^[1-9]\d*$/', $this->merchantId) !== 1) {
             throw new InvalidArgumentException('The BlueSnap merchant ID must be a positive integer.');
         }
 
