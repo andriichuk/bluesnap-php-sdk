@@ -7,6 +7,8 @@ This document maps the BlueSnap operations required by a Laravel Cashier-style p
 | Cashier capability | SDK method | BlueSnap operation |
 | --- | --- | --- |
 | Create checkout token | `paymentFieldsTokens()->create()` | `POST /payment-fields-tokens` |
+| Encrypt Hosted Payment Page parameters | `paramEncryption()->encrypt()` | `POST /tools/param-encryption` (XML) |
+| Build Hosted Payment Page checkout URL | `HostedPageUrl::build()` | Local URL construction for `/buynow/checkout` |
 | Prefill saved card for 3-D Secure | `paymentFieldsTokens()->prefill()` | `POST /payment-fields-tokens/prefill` |
 | Create customer | `vaultedShoppers()->create()` | `POST /vaulted-shoppers` |
 | Retrieve customer/payment methods | `vaultedShoppers()->retrieve()` | `GET /vaulted-shoppers/{id}` |
@@ -48,7 +50,7 @@ Some required behavior is application integration rather than an outbound BlueSn
 - Idempotent webhook storage and queued event handling.
 - Mapping for recurring charge, charge failure, cancellation, cancel-on-renewal, refund, decline, chargeback, payment-method update, and account-updater events.
 - Periodic reconciliation using the subscription and charge list endpoints.
-- Hosted Payment Fields JavaScript and 3-D Secure orchestration.
+- Hosted Payment Fields JavaScript, Hosted Payment Page redirects, and 3-D Secure orchestration.
 - A local billing portal because BlueSnap does not provide a Cashier-compatible customer portal API.
 - Local invoice/receipt rendering from charges and transactions when an application needs Cashier-style PDFs.
 
@@ -56,4 +58,4 @@ BlueSnap does not expose a Paddle-equivalent arbitrary pause operation. The pack
 
 ## Deliberately outside the initial Cashier scope
 
-The first Cashier package can be complete for card-based subscription billing without wrapping unrelated BlueSnap products. Marketplace vendor onboarding and payouts, reporting exports, chargeback representment, hosted payment pages, surcharges, and every alternative payment rail should remain optional SDK modules unless product requirements call for them.
+The first Cashier package can be complete for card-based subscription billing without wrapping unrelated BlueSnap products. Marketplace vendor onboarding and payouts, reporting exports, chargeback representment, surcharges, and every alternative payment rail should remain optional SDK modules unless product requirements call for them.

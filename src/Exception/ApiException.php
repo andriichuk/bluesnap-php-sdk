@@ -34,10 +34,13 @@ class ApiException extends BlueSnapException
             }
         }
 
-        $message = $errors[0]->description ?? sprintf(
-            'BlueSnap API request failed with HTTP status %d.',
-            $response->statusCode,
-        );
+        $description = $errors[0]->description ?? null;
+        $message = match ($response->statusCode) {
+            401 => self::withDescription('BlueSnap API authentication failed (HTTP 401); verify the API credentials.', $description),
+            403 => self::withDescription('BlueSnap API request was forbidden (HTTP 403); verify that the calling IP is allowlisted.', $description),
+            415 => self::withDescription('BlueSnap API rejected the media type (HTTP 415); parameter encryption requires XML with Content-Type application/xml.', $description),
+            default => $description ?? sprintf('BlueSnap API request failed with HTTP status %d.', $response->statusCode),
+        };
 
         return match ($response->statusCode) {
             401, 403 => new AuthenticationException($message, $response->statusCode, $errors, $response),
@@ -47,5 +50,10 @@ class ApiException extends BlueSnapException
             429 => new RateLimitException($message, $response->statusCode, $errors, $response),
             default => new self($message, $response->statusCode, $errors, $response),
         };
+    }
+
+    private static function withDescription(string $message, ?string $description): string
+    {
+        return $description === null ? $message : $message.' '.$description;
     }
 }

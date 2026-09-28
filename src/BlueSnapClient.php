@@ -10,6 +10,7 @@ use Andriichuk\BlueSnap\Http\Response;
 use Andriichuk\BlueSnap\Resource\PaymentFieldsTokens;
 use Andriichuk\BlueSnap\Resource\Plans;
 use Andriichuk\BlueSnap\Resource\MerchantManagedSubscriptions;
+use Andriichuk\BlueSnap\Resource\ParamEncryption;
 use Andriichuk\BlueSnap\Resource\Subscriptions;
 use Andriichuk\BlueSnap\Resource\Transactions;
 use Andriichuk\BlueSnap\Resource\VaultedShoppers;
@@ -61,6 +62,11 @@ final class BlueSnapClient
         return new PaymentFieldsTokens($this);
     }
 
+    public function paramEncryption(): ParamEncryption
+    {
+        return new ParamEncryption($this);
+    }
+
     public function webhookConfigurations(): WebhookConfigurations
     {
         return new WebhookConfigurations($this);
@@ -96,8 +102,47 @@ final class BlueSnapClient
             $headers['Idempotency-Key'] = $idempotencyKey;
         }
 
+        $body = null;
+        if ($payload !== []) {
+            try {
+                $body = json_encode($payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
+            } catch (JsonException $exception) {
+                throw new InvalidArgumentException('The request payload cannot be encoded as JSON.', previous: $exception);
+            }
+        }
+
+        return $this->send($method, $path, $body, $query, $headers);
+    }
+
+    /**
+     * @param array<string, scalar|null> $query
+     * @param array<string, string> $headers
+     *
+     * @throws ApiException
+     * @throws TransportException
+     */
+    public function requestXml(
+        string $method,
+        string $path,
+        string $xml,
+        array $query = [],
+        array $headers = [],
+    ): Response {
+        return $this->send($method, $path, $xml, $query, [
+            'Accept' => 'application/xml',
+            'Content-Type' => 'application/xml',
+            ...$headers,
+        ]);
+    }
+
+    /**
+     * @param array<string, scalar|null> $query
+     * @param array<string, string> $headers
+     */
+    private function send(string $method, string $path, ?string $body, array $query, array $headers): Response
+    {
         $uri = $this->buildUri($path, $query);
-        $request = $this->requestFactory->createRequest($method, $uri);
+        $request = $this->requestFactory->createRequest(strtoupper($method), $uri);
 
         $defaultHeaders = [
             'Accept' => 'application/json',
@@ -111,14 +156,8 @@ final class BlueSnapClient
             $request = $request->withHeader($name, $value);
         }
 
-        if ($payload !== []) {
-            try {
-                $json = json_encode($payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
-            } catch (JsonException $exception) {
-                throw new InvalidArgumentException('The request payload cannot be encoded as JSON.', previous: $exception);
-            }
-
-            $request = $request->withBody($this->streamFactory->createStream($json));
+        if ($body !== null) {
+            $request = $request->withBody($this->streamFactory->createStream($body));
         }
 
         try {
