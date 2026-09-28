@@ -6,6 +6,4 @@ namespace Andriichuk\BlueSnap\Exception;
 
 use Psr\Http\Client\ClientExceptionInterface;
 
-final class TransportException extends BlueSnapException implements ClientExceptionInterface
-{
-}
+final class TransportException extends BlueSnapException implements ClientExceptionInterface {}

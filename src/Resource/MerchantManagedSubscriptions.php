@@ -9,14 +9,12 @@ use Andriichuk\BlueSnap\Http\Response;
 
 final readonly class MerchantManagedSubscriptions
 {
-    public function __construct(private BlueSnapClient $client)
-    {
-    }
+    public function __construct(private BlueSnapClient $client) {}
 
     /**
      * Create a merchant-managed subscription and its initial charge.
      *
-     * @param array<string, mixed> $charge
+     * @param  array<string, mixed>  $charge
      */
     public function create(array $charge, ?string $idempotencyKey = null): Response
     {
@@ -31,7 +29,7 @@ final readonly class MerchantManagedSubscriptions
     /**
      * Add a recurring charge to a merchant-managed subscription.
      *
-     * @param array<string, mixed> $charge
+     * @param  array<string, mixed>  $charge
      */
     public function charge(
         int|string $subscriptionId,

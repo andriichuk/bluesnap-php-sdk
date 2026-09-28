@@ -8,10 +8,10 @@ use Andriichuk\BlueSnap\Exception\ApiException;
 use Andriichuk\BlueSnap\Exception\TransportException;
 use Andriichuk\BlueSnap\HostedPage\HostedPageUrl;
 use Andriichuk\BlueSnap\Http\Response;
-use Andriichuk\BlueSnap\Resource\PaymentFieldsTokens;
-use Andriichuk\BlueSnap\Resource\Plans;
 use Andriichuk\BlueSnap\Resource\MerchantManagedSubscriptions;
 use Andriichuk\BlueSnap\Resource\ParamEncryption;
+use Andriichuk\BlueSnap\Resource\PaymentFieldsTokens;
+use Andriichuk\BlueSnap\Resource\Plans;
 use Andriichuk\BlueSnap\Resource\Subscriptions;
 use Andriichuk\BlueSnap\Resource\Transactions;
 use Andriichuk\BlueSnap\Resource\VaultedShoppers;
@@ -30,8 +30,7 @@ final class BlueSnapClient
         private readonly ClientInterface $httpClient,
         private readonly RequestFactoryInterface $requestFactory,
         private readonly StreamFactoryInterface $streamFactory,
-    ) {
-    }
+    ) {}
 
     public function plans(): Plans
     {
@@ -79,9 +78,9 @@ final class BlueSnapClient
     }
 
     /**
-     * @param array<string, mixed> $payload
-     * @param array<string, scalar|null> $query
-     * @param array<string, string> $headers
+     * @param  array<string, mixed>  $payload
+     * @param  array<string, scalar|null>  $query
+     * @param  array<string, string>  $headers
      *
      * @throws ApiException
      * @throws TransportException
@@ -121,8 +120,8 @@ final class BlueSnapClient
     }
 
     /**
-     * @param array<string, scalar|null> $query
-     * @param array<string, string> $headers
+     * @param  array<string, scalar|null>  $query
+     * @param  array<string, string>  $headers
      *
      * @throws ApiException
      * @throws TransportException
@@ -142,8 +141,8 @@ final class BlueSnapClient
     }
 
     /**
-     * @param array<string, scalar|null> $query
-     * @param array<string, string> $headers
+     * @param  array<string, scalar|null>  $query
+     * @param  array<string, string>  $headers
      */
     private function send(string $method, string $path, ?string $body, array $query, array $headers): Response
     {
@@ -182,7 +181,7 @@ final class BlueSnapClient
     }
 
     /**
-     * @param array<string, scalar|null> $query
+     * @param  array<string, scalar|null>  $query
      */
     private function buildUri(string $path, array $query): string
     {

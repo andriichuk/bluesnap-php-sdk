@@ -9,12 +9,10 @@ use Andriichuk\BlueSnap\Http\Response;
 
 final readonly class Transactions
 {
-    public function __construct(private BlueSnapClient $client)
-    {
-    }
+    public function __construct(private BlueSnapClient $client) {}
 
     /**
-     * @param array<string, mixed> $transaction
+     * @param  array<string, mixed>  $transaction
      */
     public function create(array $transaction, ?string $idempotencyKey = null): Response
     {
@@ -22,7 +20,7 @@ final readonly class Transactions
     }
 
     /**
-     * @param array<string, mixed> $transaction
+     * @param  array<string, mixed>  $transaction
      */
     public function charge(array $transaction, ?string $idempotencyKey = null): Response
     {
@@ -33,7 +31,7 @@ final readonly class Transactions
     }
 
     /**
-     * @param array<string, mixed> $transaction
+     * @param  array<string, mixed>  $transaction
      */
     public function authorize(array $transaction, ?string $idempotencyKey = null): Response
     {
@@ -44,7 +42,7 @@ final readonly class Transactions
     }
 
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     public function capture(int|string $transactionId, array $options = []): Response
     {
@@ -81,8 +79,8 @@ final readonly class Transactions
     }
 
     /**
-     * @param array<string, mixed> $refund
-     * @param array<string, scalar|null> $query
+     * @param  array<string, mixed>  $refund
+     * @param  array<string, scalar|null>  $query
      */
     public function refund(
         int|string $transactionId,
@@ -100,8 +98,8 @@ final readonly class Transactions
     }
 
     /**
-     * @param array<string, mixed> $refund
-     * @param array<string, scalar|null> $query
+     * @param  array<string, mixed>  $refund
+     * @param  array<string, scalar|null>  $query
      */
     public function refundByMerchantTransactionId(
         int|string $merchantTransactionId,

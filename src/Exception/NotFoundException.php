@@ -4,6 +4,4 @@ declare(strict_types=1);
 
 namespace Andriichuk\BlueSnap\Exception;
 
-final class NotFoundException extends ApiException
-{
-}
+final class NotFoundException extends ApiException {}

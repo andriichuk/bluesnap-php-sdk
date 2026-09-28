@@ -10,16 +10,15 @@ use Psr\Http\Message\ResponseInterface;
 final readonly class Response
 {
     /**
-     * @param array<string, list<string>> $headers
-     * @param array<mixed> $decoded
+     * @param  array<string, list<string>>  $headers
+     * @param  array<mixed>  $decoded
      */
     private function __construct(
         public int $statusCode,
         public array $headers,
         public string $body,
         private array $decoded,
-    ) {
-    }
+    ) {}
 
     public static function fromPsrResponse(ResponseInterface $response): self
     {

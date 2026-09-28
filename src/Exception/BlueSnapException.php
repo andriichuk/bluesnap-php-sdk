@@ -6,6 +6,4 @@ namespace Andriichuk\BlueSnap\Exception;
 
 use RuntimeException;
 
-class BlueSnapException extends RuntimeException
-{
-}
+class BlueSnapException extends RuntimeException {}

@@ -9,12 +9,10 @@ use Andriichuk\BlueSnap\Http\Response;
 
 final readonly class PaymentFieldsTokens
 {
-    public function __construct(private BlueSnapClient $client)
-    {
-    }
+    public function __construct(private BlueSnapClient $client) {}
 
     /**
-     * @param array<string, scalar|null> $options
+     * @param  array<string, scalar|null>  $options
      */
     public function create(array $options = []): Response
     {
@@ -24,8 +22,8 @@ final readonly class PaymentFieldsTokens
     /**
      * Create a 3-D Secure token prefilled with a saved card's details.
      *
-     * @param array<string, mixed> $card
-     * @param array<string, scalar|null> $options
+     * @param  array<string, mixed>  $card
+     * @param  array<string, scalar|null>  $options
      */
     public function prefill(array $card, array $options = []): Response
     {

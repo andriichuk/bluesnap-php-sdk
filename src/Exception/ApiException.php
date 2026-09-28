@@ -9,7 +9,7 @@ use Andriichuk\BlueSnap\Http\Response;
 class ApiException extends BlueSnapException
 {
     /**
-     * @param list<ApiError> $errors
+     * @param  list<ApiError>  $errors
      */
     public function __construct(
         string $message,

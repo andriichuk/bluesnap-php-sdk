@@ -9,12 +9,10 @@ use Andriichuk\BlueSnap\Http\Response;
 
 final readonly class VaultedShoppers
 {
-    public function __construct(private BlueSnapClient $client)
-    {
-    }
+    public function __construct(private BlueSnapClient $client) {}
 
     /**
-     * @param array<string, mixed> $shopper
+     * @param  array<string, mixed>  $shopper
      */
     public function create(array $shopper, ?string $idempotencyKey = null): Response
     {
@@ -27,7 +25,7 @@ final readonly class VaultedShoppers
     }
 
     /**
-     * @param array<string, mixed> $changes
+     * @param  array<string, mixed>  $changes
      */
     public function update(int|string $shopperId, array $changes): Response
     {

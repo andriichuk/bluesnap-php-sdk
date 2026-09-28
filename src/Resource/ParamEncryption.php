@@ -10,11 +10,11 @@ use InvalidArgumentException;
 
 final readonly class ParamEncryption
 {
-    public function __construct(private BlueSnapClient $client)
-    {
-    }
+    public function __construct(private BlueSnapClient $client) {}
 
-    /** @param non-empty-array<string, scalar> $parameters */
+    /**
+     * @param  non-empty-array<string, scalar>  $parameters
+     */
     public function encrypt(array $parameters): Response
     {
         if ($parameters === []) {

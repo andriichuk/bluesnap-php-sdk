@@ -9,12 +9,10 @@ use Andriichuk\BlueSnap\Http\Response;
 
 final readonly class Subscriptions
 {
-    public function __construct(private BlueSnapClient $client)
-    {
-    }
+    public function __construct(private BlueSnapClient $client) {}
 
     /**
-     * @param array<string, mixed> $subscription
+     * @param  array<string, mixed>  $subscription
      */
     public function create(array $subscription, ?string $idempotencyKey = null): Response
     {
@@ -35,7 +33,7 @@ final readonly class Subscriptions
     }
 
     /**
-     * @param array<string, scalar|null> $query
+     * @param  array<string, scalar|null>  $query
      */
     public function all(array $query = []): Response
     {
@@ -43,7 +41,7 @@ final readonly class Subscriptions
     }
 
     /**
-     * @param array<string, mixed> $changes
+     * @param  array<string, mixed>  $changes
      */
     public function update(int|string $subscriptionId, array $changes): Response
     {
@@ -75,7 +73,7 @@ final readonly class Subscriptions
     }
 
     /**
-     * @param array<string, scalar|null> $query
+     * @param  array<string, scalar|null>  $query
      */
     public function charges(int|string $subscriptionId, array $query = []): Response
     {
@@ -98,7 +96,7 @@ final readonly class Subscriptions
     /**
      * Preview the charge caused by changing a plan, quantity, or override amount.
      *
-     * @param array<string, scalar|null> $changes
+     * @param  array<string, scalar|null>  $changes
      */
     public function switchChargeAmount(int|string $subscriptionId, array $changes): Response
     {
