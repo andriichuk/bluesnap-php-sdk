@@ -6,6 +6,7 @@ namespace Andriichuk\BlueSnap;
 
 use Andriichuk\BlueSnap\Exception\ApiException;
 use Andriichuk\BlueSnap\Exception\TransportException;
+use Andriichuk\BlueSnap\HostedPage\HostedPageUrl;
 use Andriichuk\BlueSnap\Http\Response;
 use Andriichuk\BlueSnap\Resource\PaymentFieldsTokens;
 use Andriichuk\BlueSnap\Resource\Plans;
@@ -60,6 +61,11 @@ final class BlueSnapClient
     public function paymentFieldsTokens(): PaymentFieldsTokens
     {
         return new PaymentFieldsTokens($this);
+    }
+
+    public function hostedPageUrl(): HostedPageUrl
+    {
+        return new HostedPageUrl($this->configuration);
     }
 
     public function paramEncryption(): ParamEncryption
