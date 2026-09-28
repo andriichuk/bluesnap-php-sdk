@@ -119,8 +119,23 @@ Hosted Payment Page URLs use the checkout host rather than the API base URI. The
 `checkoutHost` to `Configuration` to override that origin.
 
 Use `paramEncryption()->encrypt()` to encrypt protected parameters such as
-`thankyou.backtosellerurl`, then build the redirect URL with `HostedPageUrl`. Parameter encryption
+`thankyou.backtosellerurl`, then build the redirect URL with `hostedPageUrl()`. Parameter encryption
 requires a Data Protection Key configured in the BlueSnap merchant console.
+
+```php
+$url = $client->hostedPageUrl()->build(new HostedPageRequest(
+    planId: 3173219,
+    merchantTransactionId: 'account-42',
+    enc: $encryptedToken,
+));
+```
+
+The merchant ID lives on `Configuration` and is validated there; `HostedPageRequest` validates the
+per-checkout values. Building a URL without a merchant ID throws.
+
+> The production checkout origin `https://checkout.bluesnap.com` is taken from BlueSnap's published
+> examples and has not been exercised against a live production account. Confirm the origin your
+> account is issued and set `checkoutHost` explicitly before going live.
 
 ## Cashier readiness
 
