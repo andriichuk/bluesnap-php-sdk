@@ -18,7 +18,7 @@ trait CreatesClient
     private function createClient(ResponseInterface ...$responses): array
     {
         $httpClient = new RecordingClient(...$responses);
-        $factory = new Psr17Factory();
+        $factory = new Psr17Factory;
         $client = new BlueSnapClient(
             new Configuration('api-user', 'api-password', Environment::Sandbox, merchantId: '1469228'),
             $httpClient,

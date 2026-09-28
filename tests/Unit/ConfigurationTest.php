@@ -58,7 +58,9 @@ final class ConfigurationTest extends TestCase
         new Configuration('user', 'password', merchantId: $merchantId);
     }
 
-    /** @return iterable<string, array{string}> */
+    /**
+     * @return iterable<string, array{string}>
+     */
     public static function invalidMerchantIds(): iterable
     {
         yield 'empty' => [''];

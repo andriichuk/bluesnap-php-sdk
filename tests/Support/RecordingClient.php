@@ -11,10 +11,14 @@ use RuntimeException;
 
 final class RecordingClient implements ClientInterface
 {
-    /** @var list<RequestInterface> */
+    /**
+     * @var list<RequestInterface>
+     */
     public array $requests = [];
 
-    /** @var list<ResponseInterface> */
+    /**
+     * @var list<ResponseInterface>
+     */
     private array $responses;
 
     public function __construct(ResponseInterface ...$responses)

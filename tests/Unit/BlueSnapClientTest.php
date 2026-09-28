@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Andriichuk\BlueSnap\Tests\Unit;
 
-use Andriichuk\BlueSnap\Exception\ValidationException;
 use Andriichuk\BlueSnap\Exception\AuthenticationException;
+use Andriichuk\BlueSnap\Exception\ValidationException;
 use Andriichuk\BlueSnap\Tests\Support\CreatesClient;
 use Nyholm\Psr7\Response;
 use PHPUnit\Framework\Attributes\Test;

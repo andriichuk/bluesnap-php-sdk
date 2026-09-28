@@ -9,12 +9,10 @@ use Andriichuk\BlueSnap\Http\Response;
 
 final readonly class Plans
 {
-    public function __construct(private BlueSnapClient $client)
-    {
-    }
+    public function __construct(private BlueSnapClient $client) {}
 
     /**
-     * @param array<string, mixed> $plan
+     * @param  array<string, mixed>  $plan
      */
     public function create(array $plan, ?string $idempotencyKey = null): Response
     {
@@ -27,7 +25,7 @@ final readonly class Plans
     }
 
     /**
-     * @param array<string, scalar|null> $query
+     * @param  array<string, scalar|null>  $query
      */
     public function all(array $query = []): Response
     {
@@ -35,7 +33,7 @@ final readonly class Plans
     }
 
     /**
-     * @param array<string, mixed> $changes
+     * @param  array<string, mixed>  $changes
      */
     public function update(int|string $planId, array $changes): Response
     {

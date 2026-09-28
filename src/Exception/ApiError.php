@@ -7,18 +7,17 @@ namespace Andriichuk\BlueSnap\Exception;
 final readonly class ApiError
 {
     /**
-     * @param array<array-key, mixed>|string|null $invalidProperty
+     * @param  array<array-key, mixed>|string|null  $invalidProperty
      */
     public function __construct(
         public ?string $name,
         public int|string|null $code,
         public ?string $description,
         public array|string|null $invalidProperty = null,
-    ) {
-    }
+    ) {}
 
     /**
-     * @param array<string, mixed> $payload
+     * @param  array<string, mixed>  $payload
      */
     public static function fromArray(array $payload): self
     {
