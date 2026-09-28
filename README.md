@@ -41,6 +41,7 @@ $blueSnap = new BlueSnapClient(
     new Configuration(
         username: $_ENV['BLUESNAP_USERNAME'],
         password: $_ENV['BLUESNAP_PASSWORD'],
+        merchantId: $_ENV['BLUESNAP_MERCHANT_ID'],
         environment: Environment::Sandbox,
     ),
     httpClient: $httpClient,
@@ -108,6 +109,16 @@ $tokenUrl = $response->location();
 BlueSnap returns the token in the response's `Location` header. Extract the final path segment only when the Hosted Payment Fields JavaScript integration requires the token value.
 
 For saved-card 3-D Secure flows, use `paymentFieldsTokens()->prefill()`.
+
+## Hosted Payment Pages
+
+Hosted Payment Page URLs use the checkout host rather than the API base URI. The SDK defaults to
+`https://sandbox.bluesnap.com` in sandbox and `https://checkout.bluesnap.com` in production; pass
+`checkoutHost` to `Configuration` to override that origin.
+
+Use `paramEncryption()->encrypt()` to encrypt protected parameters such as
+`thankyou.backtosellerurl`, then build the redirect URL with `HostedPageUrl`. Parameter encryption
+requires a Data Protection Key configured in the BlueSnap merchant console.
 
 ## Cashier readiness
 

@@ -20,7 +20,7 @@ trait CreatesClient
         $httpClient = new RecordingClient(...$responses);
         $factory = new Psr17Factory();
         $client = new BlueSnapClient(
-            new Configuration('api-user', 'api-password', Environment::Sandbox),
+            new Configuration('api-user', 'api-password', '1469228', Environment::Sandbox),
             $httpClient,
             $factory,
             $factory,
